@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.taotao.mapper.TbItemMapper">
+    <sql id="serach">
+
+        <where>
+            <if test="title != ''">
+                and title LIKE "%${title}%" AND
+            </if>
+            price BETWEEN #{priceMin} AND #{priceMax}
+            <if test="cId !=null">
+                AND cId = #{cId}
+            </if>
+        </where>
+
+    </sql>
+    <update id="updateItemByIds">
+        UPDATE tbitem SET status = #{type} , updated = #{date}
+        <where>
+            <foreach collection="ids" open="id in(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+    <select id="findTbItemByLikeConut" resultType="int">
+        SELECT count(*) FROM tbitem
+        <include refid="serach"/>
+    </select>
+
+    <select id="findTbItemByLike" resultType="com.taotao.pojo.TbItem">
+        SELECT * FROM tbitem
+        <where>
+            <if test="title != ''">
+                and title LIKE "%${title}%" AND
+            </if>
+            price BETWEEN #{priceMin} AND #{priceMax}
+            <if test="cId !=null">
+                AND cId = #{cId}
+            </if>
+        </where>
+        LIMIT #{page},#{limit}
+    </select>
+
+    <select id="findSearchItemAll" resultType="com.taotao.pojo.SearchItem">
+        SELECT
+        a.id,
+        a.title,
+        a.sellPoint,
+        a.price,
+        a.image,
+        b.`name` categoryName,
+        c.itemDesc
+        FROM
+        tbitem a
+        INNER JOIN
+        tbitemcat b
+        ON
+        a.cId = b.id
+        INNER JOIN
+        tbitemdesc c
+        ON
+        a.id = c.itemId
+    </select>
+    <select id="findSearchItemById" resultType="com.taotao.pojo.SearchItem">
+        SELECT
+        a.id,
+        a.title,
+        a.sellPoint,
+        a.price,
+        a.image,
+        b.`name` categoryName,
+        c.itemDesc
+        FROM
+        tbitem a
+        INNER JOIN
+        tbitemcat b
+        ON
+        a.cId = b.id
+        INNER JOIN
+        tbitemdesc c
+        ON
+        a.id = c.itemId
+        WHERE
+        a.id = #{id}
+    </select>
+
+</mapper>

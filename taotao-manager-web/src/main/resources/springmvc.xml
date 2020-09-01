@@ -52,6 +52,8 @@
     <dubbo:reference interface="com.taotao.service.ItemService" id="itemService"/>
     <!--引入商品分类服务-->
     <dubbo:reference interface="com.taotao.service.ItemCatService" id="itemCatService"/>
+    <!--引入商品规格参数模板服务-->
+    <dubbo:reference interface="com.taotao.service.ItemGroupService" id="itemGroupService" />
     <!--&lt;!&ndash;引入商品图片服务&ndash;&gt;-->
     <!--<dubbo:reference interface="com.taotao.service.PictureService" id="pictureService"/>-->
 
@@ -62,7 +64,6 @@
     <!--<dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService"/>-->
     <!--&lt;!&ndash;&lt;!&ndash;引入搜索服务&ndash;&gt;&ndash;&gt;-->
     <!--&lt;!&ndash;<dubbo:reference interface="com.taotao.search.service.SearchItemService" id="searchItemService" timeout="30000"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;引入商品规格参数模板服务&ndash;&gt;-->
-    <!--<dubbo:reference interface="com.taotao.service.ItemParamService" id="itemParamService" timeout="30000"/>-->
+
 
 </beans>

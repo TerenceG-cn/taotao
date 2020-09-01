@@ -8,7 +8,7 @@ import java.util.Random;
 public class IDUtils {
 
 	/**
-	 * 图片名生成
+	 * 图片名生成 TODO UUID
 	 */
 	public static String genImageName() {
 		//取当前时间的长整形值包含毫秒

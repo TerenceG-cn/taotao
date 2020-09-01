@@ -121,7 +121,8 @@
      -->
     <dubbo:service interface="com.taotao.service.ItemService" ref="itemServiceImpl" />
     <dubbo:service interface="com.taotao.service.ItemCatService" ref="itemCatServiceImpl" />
-    <!--<dubbo:service interface="com.taotao.service.ItemGroupService" ref="itemGroupServiceImpl" />-->
+    <!-- 商品规格参数信息 -->
+    <dubbo:service interface="com.taotao.service.ItemGroupService" ref="itemGroupServiceImpl" />
 
 
 </beans>

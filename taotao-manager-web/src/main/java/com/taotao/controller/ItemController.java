@@ -1,5 +1,6 @@
 package com.taotao.controller;
 
+import com.taotao.pojo.PictureResult;
 import com.taotao.pojo.LayuiResult;
 import com.taotao.pojo.TaotaoResult;
 import com.taotao.pojo.TbItem;
@@ -7,8 +8,11 @@ import com.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 @RequestMapping("/item")
 @Controller
@@ -74,5 +78,27 @@ public class ItemController {
         return result;
     }
 
+    /*图片上传*/
+    @RequestMapping("/fileUpload")
+    @ResponseBody
+    public PictureResult fileUpload(MultipartFile file)  {
+        try {
+            /*获取图片字节流*/
+            byte[] bytes = file.getBytes();
+            /*获得上传原生图片名字*/
+            String fileName = file.getOriginalFilename();
+            PictureResult result = itemService.addPicture(fileName, bytes);
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @RequestMapping("/addItem")
+    @ResponseBody
+    public TaotaoResult addItem(TbItem tbItem, String itemDesc, @RequestParam(value="paramKeyIds[]", required = false) List<Integer> paramKeyIds,@RequestParam(value="paramValue[]", required = false) List<String> paramValue){
+        TaotaoResult result = itemService.addItem(tbItem,itemDesc,paramKeyIds,paramValue);
+        return result;
+    }
 
 }

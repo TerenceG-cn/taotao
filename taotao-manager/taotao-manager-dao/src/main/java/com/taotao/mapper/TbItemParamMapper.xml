@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.taotao.mapper.TbItemParamMapper">
+    <insert id="addGroup">
+        <selectKey resultType="int" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+        INSERT INTO tbitemparamgroup(groupName, itemCatId) VALUE(#{groupName},#{itemCatId})
+
+    </insert>
+    <insert id="addGroupKey">
+        INSERT INTO tbitemparamkey(paramName, groupId) VALUES
+        <foreach collection="paramKeys" separator="," item="key">
+            (#{key.paramName},#{key.groupId})
+        </foreach>
+    </insert>
+
+    <resultMap id="group" type="com.taotao.pojo.TbItemParamGroup">
+        <id column="groupId" property="id"/>
+        <result column="groupName" property="groupName"/>
+        <result column="itemCatId" property="itemCatId"/>
+        <collection property="paramKeys" ofType="com.taotao.pojo.TbItemParamKey">
+            <id column="paramKeyId" property="id"/>
+            <result column="paramName" property="paramName"/>
+            <association property="itemParamValue" javaType="com.taotao.pojo.TbItemParamValue">
+                <id column="itemId" property="itemId"/>
+                <result column="paramValue" property="paramValue"/>
+            </association>
+        </collection>
+
+    </resultMap>
+
+    <select id="findTbItemGroupByItemId" resultMap="group">
+        SELECT
+            c.id groupId,
+            c.groupName,
+            c.itemCatId,
+            b.id paramKeyId,
+            b.paramName,
+            a.itemId,
+            a.paramValue
+        FROM
+            tbitemparamvalue a
+            INNER JOIN tbitemparamkey b ON a.paramId = b.id
+            INNER JOIN tbitemparamgroup c ON b.groupId = c.id
+        WHERE
+            a.itemId = 158916214823693
+    </select>
+    
+</mapper>

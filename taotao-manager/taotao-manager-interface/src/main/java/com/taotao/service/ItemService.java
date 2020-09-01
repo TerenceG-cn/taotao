@@ -1,7 +1,6 @@
 package com.taotao.service;
 
 import com.taotao.pojo.*;
-
 import java.util.Date;
 import java.util.List;
 //商品服务
@@ -32,4 +31,21 @@ public interface ItemService {
      */
     LayuiResult getLikeItem(Integer page, Integer limit, String title, Integer priceMin, Integer priceMax, Long cId);
 
+    /**
+     * 上传图片到图片服务器
+     * @param fileName 图片的名字
+     * @param bytes 图片的字节数组
+     * @return layui固定格式
+     */
+    PictureResult addPicture(String fileName, byte[] bytes);
+
+    /**
+     * 添加商品信息到数据库中
+     * @param tbItem 商品基本信息
+     * @param itemDesc 商品描述信息
+     * @param paramKeyIds 规格参数项id集合
+     * @param paramValue 规格参数值集合
+     * @return
+     */
+    TaotaoResult addItem(TbItem tbItem, String itemDesc, List<Integer> paramKeyIds, List<String> paramValue);
 }

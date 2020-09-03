@@ -15,6 +15,7 @@
         <module>../taotao-portal-web</module>
         <module>../taotao-search</module>
         <module>../taotao-search-web</module>
+        <module>../taotao-item-web</module>
     </modules>
     <packaging>pom</packaging>
     <!-- 集中定义依赖版本号 -->
@@ -48,6 +49,7 @@
         <zkclient.version>0.1</zkclient.version>
         <activemq.version>5.11.2</activemq.version>
         <freemarker.version>2.3.23</freemarker.version>
+        <!--定时任务-->
         <quartz.version>2.2.2</quartz.version>
     </properties>
     <dependencyManagement>
